@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: platform-smoke
-          image: harbor.lan/platform/platform-smoke:bootstrap-pending
+          image: harbor.lan/platform/platform-smoke:
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
