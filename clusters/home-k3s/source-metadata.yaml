@@ -12,6 +12,6 @@ data:
   repoKind: external-github
   repoURLSource: gitops-bootstrap-source-inputs.yaml:gitops_repo_url
   repoURL: https://github.com/ShawnZhongChn/home-k3s-gitops-bootstrap-temp-20260703093156.git
-  liveBootstrapApplied: 'false'
+  liveBootstrapApplied: 'true'
   fullyConsumableSecrets: 'false'
-  blockers: ingress_route_mismatch,recipient_pending
+  blockers: recipient_pending

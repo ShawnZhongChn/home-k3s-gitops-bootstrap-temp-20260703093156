@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gitea
+  namespace: gitea
+  labels:
+    app.kubernetes.io/name: gitea
+    platform.codestable/rebuild-generation: clean-2026-07
+spec:
+  rules:
+    - host: gitea.lan
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gitea-http
+                port:
+                  number: 3000

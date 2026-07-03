@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitea-data
+  namespace: gitea
+  labels:
+    app.kubernetes.io/name: gitea
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/data-class: rebuildable
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 10Gi

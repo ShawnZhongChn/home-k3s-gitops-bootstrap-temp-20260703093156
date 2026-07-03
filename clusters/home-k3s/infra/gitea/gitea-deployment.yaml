@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea
+  namespace: gitea
+  labels:
+    app.kubernetes.io/name: gitea
+    platform.codestable/rebuild-generation: clean-2026-07
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitea
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: gitea
+        platform.codestable/rebuild-generation: clean-2026-07
+    spec:
+      containers:
+        - name: gitea
+          image: docker.io/gitea/gitea:1.26.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+            - name: ssh
+              containerPort: 22
+          env:
+            - name: GITEA__server__DOMAIN
+              value: gitea.lan
+            - name: GITEA__server__ROOT_URL
+              value: http://gitea.lan/
+            - name: GITEA__server__SSH_DOMAIN
+              value: gitea.lan
+            - name: GITEA__database__DB_TYPE
+              value: sqlite3
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: gitea-data
