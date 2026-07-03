@@ -20,5 +20,7 @@ data:
   values_digest: e1f46f9bfab45050fe799c5f24629e7cec6e0c1aa2b7f96d9cab15b977a35590
   admin_handle: gitea/gitea-admin-credentials:username,password
   admin_bootstrap_state: secret_not_required_for_baseline
+  install_lock: "true"
+  install_path_must_not_expose_wizard: "true"
   restore_old_repositories: "false"
   migrate_gitops_source_to_gitea: "false"

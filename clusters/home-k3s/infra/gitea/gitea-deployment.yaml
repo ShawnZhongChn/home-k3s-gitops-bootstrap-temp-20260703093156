@@ -38,6 +38,8 @@ spec:
               value: gitea.lan
             - name: GITEA__database__DB_TYPE
               value: sqlite3
+            - name: GITEA__security__INSTALL_LOCK
+              value: "true"
           readinessProbe:
             httpGet:
               path: /api/healthz
