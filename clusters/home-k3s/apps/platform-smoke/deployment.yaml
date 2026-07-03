@@ -22,9 +22,11 @@ spec:
         platform.codestable/data-class: ephemeral
         platform.codestable/rebuild-generation: clean-2026-07
     spec:
+      imagePullSecrets:
+        - name: platform-smoke-harbor-pull
       containers:
         - name: platform-smoke
-          image: harbor.lan:80/platform/platform-smoke:main-b06770080e47
+          image: harbor.lan:80/platform/platform-smoke:bootstrap-pending
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
