@@ -1,0 +1,67 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-ingress-smoke-matrix
+  namespace: gitops
+  labels:
+    platform.codestable/tier: infra
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: ingress-smoke-baseline
+data:
+  expected_ip: 192.168.100.167
+  platform_smoke_absent_state: not_present_until_pipeline_loop
+  matrix.yaml: |
+    endpoints:
+      - id: argocd
+        host: argocd.lan
+        namespace: gitops
+        ingress: argocd-server
+        application: home-k3s-ingress
+        allowed_statuses: ['200', '302', '401', '403']
+      - id: gitea
+        host: gitea.lan
+        namespace: gitea
+        ingress: gitea
+        application: home-k3s-gitea
+        allowed_statuses: ['200', '302']
+        extra_paths:
+          - path: /api/healthz
+            allowed_statuses: ['200']
+          - path: /install
+            allowed_statuses: ['302', '404']
+            install_wizard_must_be_absent: true
+      - id: harbor
+        host: harbor.lan
+        namespace: harbor
+        ingress: home-k3s-harbor-ingress
+        application: home-k3s-harbor
+        allowed_statuses: ['200', '302']
+        extra_paths:
+          - path: /api/v2.0/ping
+            allowed_statuses: ['200']
+          - path: /v2/
+            allowed_statuses: ['200', '401']
+      - id: woodpecker
+        host: woodpecker.lan
+        namespace: woodpecker
+        ingress: home-k3s-woodpecker-server
+        application: home-k3s-woodpecker
+        allowed_statuses: ['200', '302', '401']
+        extra_paths:
+          - path: /healthz
+            allowed_statuses: ['200', '204', '401']
+      - id: longhorn
+        host: longhorn.lan
+        namespace: longhorn-system
+        ingress: longhorn-ingress
+        application: home-k3s-longhorn-ingress
+        allowed_statuses: ['200', '302', '401', '403']
+      - id: platform-smoke
+        host: platform-smoke.lan
+        namespace: platform-smoke
+        ingress:
+        application:
+        allowed_statuses: ['200']
+        allowed_absent_state: not_present_until_pipeline_loop
+        pipeline_consumable_state_required: present_http_200
