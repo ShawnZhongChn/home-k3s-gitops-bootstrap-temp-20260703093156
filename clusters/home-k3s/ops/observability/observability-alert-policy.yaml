@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: observability-alert-policy
+  namespace: observability
+  labels:
+    platform.codestable/tier: ops
+    platform.codestable/owner: system
+    platform.codestable/data-class: important
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/contract: observability-alert-policy
+data:
+  policy.yaml: |
+    apiVersion: codestable.local/v1
+    kind: ObservabilityAlertPolicy
+    metadata:
+      name: observability-alert-policy
+    metrics_source: metrics-server
+    checks:
+      node_cpu_percent:
+        pass: "< 80"
+        warn: "80-90"
+        fail: "> 90 or kubectl top nodes unavailable"
+      node_memory_percent:
+        pass: "< 80"
+        warn: "80-90"
+        fail: "> 90 or kubectl top nodes unavailable"
+      argocd_apps:
+        pass: all Synced and Healthy
+        fail: any app is not Synced or not Healthy
+      platform_smoke:
+        pass: HTTP 200
+        fail: non-200, resolver failure, or connection failure
+      longhorn_volume_robustness:
+        pass: relevant platform volumes healthy
+        warn: non-test transient unknown
+        fail: any platform volume faulted or degraded
+      backup_target_default:
+        pass: available true and URL non-empty
+        warn: available false with empty URL, remote backup pending
+        fail: URL non-empty but unavailable, or status unreadable
+      pod_readiness:
+        pass: core namespace pods Ready or Completed
+        warn: non-core transient Pending under 5m
+        fail: core pod CrashLoopBackOff, ImagePullBackOff, or NotReady
+      pod_restarts:
+        pass: "< 5"
+        warn: "5-10"
+        fail: "> 10"
+    secret_safety:
+      forbidden_patterns:
+        - Authorization
+        - Cookie
+        - password=
+        - token=
+        - secret=
+        - access_token=
+        - refresh_token=

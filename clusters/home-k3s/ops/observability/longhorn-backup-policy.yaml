@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: longhorn-backup-policy
+  namespace: observability
+  labels:
+    platform.codestable/tier: ops
+    platform.codestable/owner: system
+    platform.codestable/data-class: important
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/contract: longhorn-backup-policy
+data:
+  policy.yaml: |
+    apiVersion: codestable.local/v1
+    kind: LonghornBackupPolicy
+    metadata:
+      name: longhorn-backup-policy
+    backup_target:
+      name: default
+      remote_backup_ready_requires:
+        url_configured: true
+        available: true
+        backup_or_backupvolume_evidence: true
+      unavailable_empty_url_is: warn_remote_backup_pending
+    boundaries:
+      replica_one_is_backup: false
+      local_snapshot_is_remote_backup: false
+      application_export_import_is_longhorn_restore: false
+      read_secret_values: false
+    recovery_drill:
+      namespace: observability-recovery-drill
+      source_pvc: drill-source
+      restored_pvc: drill-restore
+      fallback_mode: application_export_import
+      required_signal: checksum_match

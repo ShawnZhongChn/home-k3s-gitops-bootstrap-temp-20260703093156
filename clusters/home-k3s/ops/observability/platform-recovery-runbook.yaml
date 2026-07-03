@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: platform-recovery-runbook
+  namespace: observability
+  labels:
+    platform.codestable/tier: ops
+    platform.codestable/owner: system
+    platform.codestable/data-class: important
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/contract: platform-recovery-runbook
+data:
+  runbook.md: |
+    # Platform Recovery Runbook
+
+    ## Scope
+
+    This runbook covers the clean k3s platform recovery baseline for test PVC drills and future Longhorn backup restore operations.
+
+    ## Hard Rules
+
+    - Do not modify SSH, WireGuard, proxy, DNS, router, or Traefik global configuration.
+    - Do not read or print Kubernetes Secret values.
+    - Do not run destructive recovery drills against Gitea, Harbor, Woodpecker, Argo CD, or Longhorn production PVCs.
+    - Longhorn replica count 1 is not a backup.
+    - Local snapshot, Kubernetes events, logs, or application export/import are not Longhorn remote backup restore.
+
+    ## Remote Backup Preconditions
+
+    Remote Longhorn backup can only be marked ready when:
+
+    - `BackupTarget/default` has a non-empty URL.
+    - `BackupTarget/default` reports `available: true`.
+    - Any credential secret is referenced by name only; its value is never printed.
+    - A `Backup` or `BackupVolume` object proves a successful backup for the tested volume.
+
+    ## Fallback Drill
+
+    When the backup target is unavailable, the only accepted fallback signal is `application_export_import`:
+
+    1. Create namespace `observability-recovery-drill`.
+    2. Create source PVC `drill-source` using StorageClass `longhorn`.
+    3. Write a random non-secret payload into the source PVC.
+    4. Compute the source checksum.
+    5. Export the payload to a feature-local temporary archive.
+    6. Delete the source pod and source PVC.
+    7. Create restored PVC `drill-restore`.
+    8. Import the archived payload into the restored PVC.
+    9. Compute the restored checksum.
+    10. Pass only if source, export, and restored checksums match.
+
+    This fallback proves application-level export/import recovery only. It does not prove Longhorn remote backup restore.
