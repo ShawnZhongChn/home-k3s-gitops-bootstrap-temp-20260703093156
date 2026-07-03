@@ -37,6 +37,7 @@ data:
   server_pvc_storage_class: longhorn
   agent_config_pvc_storage_class: longhorn
   agent_config_pvc_size: 1Gi
+  workspace_pvc_size: 5G
   workspace_policy: ephemeral
   registry_projection_state: blocked_by_harbor_registry_consumable_false
   pipeline_consumable: "false"
