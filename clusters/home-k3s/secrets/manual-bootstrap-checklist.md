@@ -16,6 +16,7 @@ This file contains only non-secret instructions. Do not paste real passwords, to
 - `harbor-robot-woodpecker` in namespace `harbor`; keys `username`, `token`; owner `harbor-registry-baseline`.
 - `woodpecker-registry-harbor` in namespace `woodpecker`; keys `username`, `password`; owner `woodpecker-ci-baseline`.
 - `woodpecker-agent-secret` in namespace `woodpecker`; key `WOODPECKER_AGENT_SECRET`; owner `woodpecker-ci-baseline`.
+- `gitea-woodpecker-oauth` in namespace `woodpecker`; keys `WOODPECKER_GITEA_CLIENT`, `WOODPECKER_GITEA_SECRET`; owner `woodpecker-ci-baseline`.
 - `gitea-woodpecker-webhook` in namespace `woodpecker`; key `shared-secret`; owner `woodpecker-ci-baseline`.
 - `gitops-write-credentials` in namespace `woodpecker`; keys `username`, `token`; owner `woodpecker-ci-baseline`.
 
@@ -26,6 +27,8 @@ This file contains only non-secret instructions. Do not paste real passwords, to
 - The Woodpecker projection must reuse the Harbor robot username and store the Harbor robot token in the consumer `password` key expected by registry clients.
 - Do not create an unrelated registry credential for `woodpecker-registry-harbor`.
 - A Woodpecker registry smoke must prove the projected credential can authenticate to Harbor before retiring the previous robot value.
+- `gitea-woodpecker-oauth` must come from a registered Gitea OAuth application for `woodpecker.lan`; do not apply placeholder client id or client secret values.
+- Rotate `gitea-woodpecker-oauth` by recreating or updating the Gitea OAuth application and replacing `WOODPECKER_GITEA_CLIENT` and `WOODPECKER_GITEA_SECRET` together.
 
 ## Evidence Without Values
 

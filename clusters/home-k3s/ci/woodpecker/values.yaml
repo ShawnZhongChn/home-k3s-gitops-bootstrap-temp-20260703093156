@@ -1,0 +1,69 @@
+woodpecker:
+  server:
+    statefulSet:
+      replicaCount: 1
+    env:
+      WOODPECKER_HOST: http://woodpecker.lan
+      WOODPECKER_OPEN: "true"
+      WOODPECKER_GITEA: "true"
+      WOODPECKER_GITEA_URL: http://gitea-http.gitea.svc.cluster.local:3000
+      WOODPECKER_ADMIN: ""
+    createAgentSecret: false
+    extraSecretNamesForEnvFrom:
+      - woodpecker-agent-secret
+      - gitea-woodpecker-oauth
+    persistentVolume:
+      enabled: true
+      size: 10Gi
+      storageClass: longhorn
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - host: woodpecker.lan
+          paths:
+            - path: /
+              backend:
+                serviceName: home-k3s-woodpecker-server
+                servicePort: 80
+      tls: []
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi
+  agent:
+    replicaCount: 1
+    env:
+      WOODPECKER_SERVER: home-k3s-woodpecker-server:9000
+      WOODPECKER_BACKEND: kubernetes
+      WOODPECKER_BACKEND_K8S_NAMESPACE: woodpecker
+      WOODPECKER_BACKEND_K8S_NAMESPACE_PER_ORGANIZATION: false
+      WOODPECKER_BACKEND_K8S_STORAGE_CLASS: longhorn
+      WOODPECKER_BACKEND_K8S_VOLUME_SIZE: 10G
+      WOODPECKER_BACKEND_K8S_STORAGE_RWX: false
+      WOODPECKER_CONNECT_RETRY_COUNT: "3"
+    mapAgentSecret: false
+    extraSecretNamesForEnvFrom:
+      - woodpecker-agent-secret
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClass: longhorn
+    serviceAccount:
+      create: true
+      rbac:
+        create: true
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 768Mi

@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: woodpecker-ci-contract
+  namespace: woodpecker
+  labels:
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: woodpecker-ci-baseline
+data:
+  endpoint_host: woodpecker.lan
+  expected_ip: 192.168.100.167
+  data_class: rebuildable
+  required_storage_class: longhorn
+  gitops_application: home-k3s-woodpecker
+  gitops_source_path: clusters/home-k3s/ci/woodpecker
+  chart_name: woodpecker
+  chart_version: 3.6.5
+  app_version: 3.16.0
+  server_create_agent_secret: "false"
+  agent_map_agent_secret: "false"
+  forbidden_default_agent_secret: woodpecker-default-agent-secret
+  gitea_oauth_secret_name: gitea-woodpecker-oauth
+  gitea_oauth_secret_keys: WOODPECKER_GITEA_CLIENT,WOODPECKER_GITEA_SECRET
+  agent_secret_name: woodpecker-agent-secret
+  agent_secret_keys: WOODPECKER_AGENT_SECRET
+  webhook_secret_name: gitea-woodpecker-webhook
+  webhook_secret_keys: shared-secret
+  registry_secret_name: woodpecker-registry-harbor
+  registry_secret_keys: username,password
+  gitops_write_secret_name: gitops-write-credentials
+  gitops_write_secret_keys: username,token
+  backend: kubernetes
+  backend_namespace: woodpecker
+  backend_namespace_per_organization: "false"
+  server_pvc_storage_class: longhorn
+  agent_config_pvc_storage_class: longhorn
+  agent_config_pvc_size: 1Gi
+  workspace_policy: ephemeral
+  registry_projection_state: blocked_by_harbor_registry_consumable_false
+  pipeline_consumable: "false"
+  restore_old_ci_history: "false"
+  restore_old_workspaces: "false"
+  configure_registry_push_pull: "false"
+  configure_gitops_writeback: "false"
+  run_pipeline_loop: "false"
+  read_secret_values: "false"

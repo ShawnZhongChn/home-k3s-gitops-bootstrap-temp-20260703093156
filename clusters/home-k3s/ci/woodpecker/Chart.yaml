@@ -1,0 +1,10 @@
+apiVersion: v2
+name: home-k3s-woodpecker
+description: Home k3s Woodpecker CI baseline wrapper.
+type: application
+version: 0.1.0
+appVersion: 3.16.0
+dependencies:
+  - name: woodpecker
+    version: 3.6.5
+    repository: https://woodpecker-ci.org/
