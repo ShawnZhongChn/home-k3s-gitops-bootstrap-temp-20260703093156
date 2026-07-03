@@ -40,6 +40,8 @@ spec:
               value: sqlite3
             - name: GITEA__security__INSTALL_LOCK
               value: "true"
+            - name: GITEA__webhook__ALLOWED_HOST_LIST
+              value: woodpecker.lan,192.168.100.167,home-k3s-woodpecker-server.woodpecker.svc.cluster.local,home-k3s-woodpecker-server.woodpecker.svc
           readinessProbe:
             httpGet:
               path: /api/healthz
