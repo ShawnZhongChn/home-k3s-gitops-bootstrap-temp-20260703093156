@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitops
+  labels:
+    platform.codestable/tier: infra
+    platform.codestable/owner: system
+    platform.codestable/data-class: rebuildable
+    platform.codestable/rebuild-generation: clean-2026-07
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gitea
+  labels:
+    platform.codestable/tier: infra
+    platform.codestable/owner: shawn
+    platform.codestable/data-class: rebuildable
+    platform.codestable/rebuild-generation: clean-2026-07
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harbor
+  labels:
+    platform.codestable/tier: registry
+    platform.codestable/owner: shawn
+    platform.codestable/data-class: rebuildable
+    platform.codestable/rebuild-generation: clean-2026-07
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: woodpecker
+  labels:
+    platform.codestable/tier: ci
+    platform.codestable/owner: system
+    platform.codestable/data-class: rebuildable
+    platform.codestable/rebuild-generation: clean-2026-07
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    platform.codestable/tier: ops
+    platform.codestable/owner: system
+    platform.codestable/data-class: important
+    platform.codestable/rebuild-generation: clean-2026-07
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform-smoke
+  labels:
+    platform.codestable/tier: test
+    platform.codestable/owner: system
+    platform.codestable/data-class: ephemeral
+    platform.codestable/rebuild-generation: clean-2026-07

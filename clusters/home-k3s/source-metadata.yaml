@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-k3s
+  namespace: gitops
+  labels:
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: gitops-bootstrap-source
+data:
+  sourceRoot: clusters/home-k3s
+  repoKind: external-github
+  repoURLSource: gitops-bootstrap-source-inputs.yaml:gitops_repo_url
+  repoURL: https://github.com/ShawnZhongChn/home-k3s-gitops-bootstrap-temp-20260703093156.git
+  liveBootstrapApplied: 'false'
+  fullyConsumableSecrets: 'false'
+  blockers: recipient_pending,bridge_not_run

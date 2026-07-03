@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: home-k3s-storageclass-defaults
+  namespace: gitops
+  labels:
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: gitops-bootstrap-source
+data:
+  policy.yaml: |
+    expectedDefaultStorageClass: longhorn
+    nonDefaultStorageClasses:
+      - local-path
+      - longhorn-static
+    evidenceSource: runtime-baseline-converged-state.yaml

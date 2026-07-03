@@ -1,0 +1,18 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: home-k3s-namespaces
+  namespace: gitops
+  labels:
+    platform.codestable/tier: infra
+    platform.codestable/rebuild-generation: clean-2026-07
+spec:
+  project: home-k3s
+  source:
+    repoURL: https://github.com/ShawnZhongChn/home-k3s-gitops-bootstrap-temp-20260703093156.git
+    targetRevision: main
+    path: clusters/home-k3s/bootstrap/namespaces
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitops

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: longhorn-lan
+  namespace: longhorn-system
+  labels:
+    platform.codestable/tier: infra
+    platform.codestable/rebuild-generation: clean-2026-07
+data:
+  smoke-policy.yaml: |
+    host: longhorn.lan
+    expectedIP: 192.168.100.167
+    curlMode: no_proxy_direct
+    expectedHTTPStatusAnyOf:
+      - 200
+      - 302
+      - 401
+      - 403
