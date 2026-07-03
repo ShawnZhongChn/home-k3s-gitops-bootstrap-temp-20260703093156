@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - gitops-resource-policy.yaml
   - argocd-application-controller-cluster-rbac.yaml
+  - argocd-server-http-params.yaml
   - argocd-server-ingress.yaml
   - project.yaml
   - root-application.yaml

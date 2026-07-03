@@ -7,8 +7,6 @@ metadata:
   labels:
     platform.codestable/tier: infra
     platform.codestable/rebuild-generation: clean-2026-07
-  annotations:
-    traefik.ingress.kubernetes.io/service.serversscheme: https
 spec:
   ingressClassName: traefik
   rules:
@@ -21,4 +19,4 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  number: 443
+                  number: 80
