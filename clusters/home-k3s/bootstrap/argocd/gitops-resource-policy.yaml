@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: baseline-quota
+  namespace: gitops
+  labels:
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: gitops-bootstrap-source
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: 2Gi
+    limits.cpu: "4"
+    limits.memory: 4Gi
+    pods: "30"
+    requests.storage: 5Gi

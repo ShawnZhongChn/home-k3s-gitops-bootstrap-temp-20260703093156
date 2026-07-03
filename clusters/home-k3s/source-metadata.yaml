@@ -14,4 +14,4 @@ data:
   repoURL: https://github.com/ShawnZhongChn/home-k3s-gitops-bootstrap-temp-20260703093156.git
   liveBootstrapApplied: 'false'
   fullyConsumableSecrets: 'false'
-  blockers: recipient_pending,bridge_not_run
+  blockers: argocd_install_manifest_missing,recipient_pending
