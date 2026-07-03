@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: platform-smoke
-          image: harbor.lan/platform/platform-smoke:main-47bdb2ac7ab0
+          image: harbor.lan:80/platform/platform-smoke:main-b06770080e47
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
