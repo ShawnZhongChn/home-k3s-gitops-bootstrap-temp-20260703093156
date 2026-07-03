@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: platform-smoke
+  namespace: platform-smoke
+  labels:
+    app.kubernetes.io/name: platform-smoke
+    platform.codestable/tier: test
+    platform.codestable/rebuild-generation: clean-2026-07
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: platform-smoke.lan
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: platform-smoke
+                port:
+                  name: http

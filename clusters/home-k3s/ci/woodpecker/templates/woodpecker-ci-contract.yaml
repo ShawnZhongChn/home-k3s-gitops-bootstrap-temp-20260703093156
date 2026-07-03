@@ -33,6 +33,7 @@ data:
   backend: kubernetes
   backend_namespace: woodpecker
   backend_namespace_per_organization: "false"
+  admin_user: codestable-admin
   server_pvc_storage_class: longhorn
   agent_config_pvc_storage_class: longhorn
   agent_config_pvc_size: 1Gi

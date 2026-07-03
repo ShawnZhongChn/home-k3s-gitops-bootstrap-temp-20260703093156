@@ -7,7 +7,7 @@ woodpecker:
       WOODPECKER_OPEN: "true"
       WOODPECKER_GITEA: "true"
       WOODPECKER_GITEA_URL: http://gitea-http.gitea.svc.cluster.local:3000
-      WOODPECKER_ADMIN: ""
+      WOODPECKER_ADMIN: codestable-admin
     createAgentSecret: false
     extraSecretNamesForEnvFrom:
       - woodpecker-agent-secret

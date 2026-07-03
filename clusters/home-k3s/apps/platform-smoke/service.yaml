@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: platform-smoke
+  namespace: platform-smoke
+  labels:
+    app.kubernetes.io/name: platform-smoke
+    platform.codestable/tier: test
+    platform.codestable/rebuild-generation: clean-2026-07
+spec:
+  selector:
+    app.kubernetes.io/name: platform-smoke
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: platform-smoke
+  namespace: platform-smoke
+  labels:
+    app.kubernetes.io/name: platform-smoke
+    platform.codestable/tier: test
+    platform.codestable/data-class: ephemeral
+    platform.codestable/rebuild-generation: clean-2026-07
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: platform-smoke
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: platform-smoke
+        platform.codestable/tier: test
+        platform.codestable/data-class: ephemeral
+        platform.codestable/rebuild-generation: clean-2026-07
+    spec:
+      containers:
+        - name: platform-smoke
+          image: harbor.lan/platform/platform-smoke:bootstrap-pending
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: 25m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
