@@ -26,7 +26,7 @@ spec:
         - name: platform-smoke-harbor-pull
       containers:
         - name: platform-smoke
-          image: harbor.lan:80/platform/platform-smoke:bootstrap-pending
+          image: harbor.lan:80/platform/platform-smoke:main-b06770080e47
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
