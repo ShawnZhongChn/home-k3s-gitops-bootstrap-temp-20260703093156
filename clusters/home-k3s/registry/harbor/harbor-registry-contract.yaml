@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: harbor-registry-contract
+  namespace: harbor
+  labels:
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: harbor-registry-baseline
+data:
+  endpoint_host: harbor.lan
+  expected_ip: 192.168.100.167
+  data_class: rebuildable
+  required_storage_class: longhorn
+  admin_secret_name: harbor-admin-credentials
+  admin_secret_key: password
+  internal_registry_secret_name: harbor-registry-internal-credentials
+  internal_registry_secret_keys: REGISTRY_HTPASSWD,REGISTRY_PASSWD
+  internal_registry_username: harbor_registry_internal
+  robot_source_secret_name: harbor-robot-woodpecker
+  robot_source_projects_to: woodpecker_registry
+  platform_project: platform
+  retention_protected_tags: main,commit-*
+  retention_temporary_tags: build-*
+  retention_keep_recent_commit_tags: "10"
+  retention_build_tag_retention_days: "7"
+  platform_project_state: manual_bootstrap_pending
+  robot_source_state: manual_bootstrap_pending
+  retention_state: manual_bootstrap_pending
+  registry_consumable: "false"
+  restore_old_projects: "false"
+  restore_old_images: "false"
+  read_secret_values: "false"

@@ -1,0 +1,10 @@
+apiVersion: v2
+name: home-k3s-harbor
+description: Home k3s Harbor registry baseline wrapper.
+type: application
+version: 0.1.0
+appVersion: 2.15.1
+dependencies:
+  - name: harbor
+    version: 1.19.1
+    repository: https://helm.goharbor.io

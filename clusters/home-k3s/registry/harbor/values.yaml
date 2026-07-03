@@ -1,0 +1,56 @@
+harbor:
+  expose:
+    type: ingress
+    tls:
+      enabled: false
+    ingress:
+      hosts:
+        core: harbor.lan
+      className: traefik
+      annotations:
+        ingress.kubernetes.io/ssl-redirect: "false"
+        nginx.ingress.kubernetes.io/ssl-redirect: "false"
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+  externalURL: http://harbor.lan
+  existingSecretAdminPassword: harbor-admin-credentials
+  existingSecretAdminPasswordKey: password
+  registry:
+    credentials:
+      username: harbor_registry_internal
+      existingSecret: harbor-registry-internal-credentials
+    replicas: 1
+  persistence:
+    enabled: true
+    resourcePolicy: keep
+    persistentVolumeClaim:
+      registry:
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 20Gi
+      jobservice:
+        jobLog:
+          storageClass: longhorn
+          accessMode: ReadWriteOnce
+          size: 1Gi
+      database:
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 5Gi
+      redis:
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 1Gi
+      trivy:
+        storageClass: longhorn
+        accessMode: ReadWriteOnce
+        size: 5Gi
+  trivy:
+    enabled: false
+  metrics:
+    enabled: false
+  portal:
+    replicas: 1
+  core:
+    replicas: 1
+  jobservice:
+    replicas: 1
