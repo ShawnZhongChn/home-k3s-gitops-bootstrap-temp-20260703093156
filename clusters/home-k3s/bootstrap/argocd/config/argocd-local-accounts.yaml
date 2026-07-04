@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: gitops
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: platform-personal-identity-baseline
+data:
+  accounts.shawnzhong: login

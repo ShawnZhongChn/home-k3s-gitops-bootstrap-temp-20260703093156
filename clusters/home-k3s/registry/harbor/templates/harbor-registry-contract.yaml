@@ -20,6 +20,10 @@ data:
   robot_source_secret_name: harbor-robot-woodpecker
   robot_source_projects_to: woodpecker_registry
   platform_project: platform
+  personal_user: shawnzhong
+  personal_project: platform
+  personal_project_role_target: project-admin-or-maintainer
+  personal_membership_state: manual_verify_required
   retention_protected_tags: main,commit-*
   retention_temporary_tags: build-*
   retention_keep_recent_commit_tags: "10"

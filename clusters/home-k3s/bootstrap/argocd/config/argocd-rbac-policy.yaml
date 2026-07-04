@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+  namespace: gitops
+  labels:
+    app.kubernetes.io/name: argocd-rbac-cm
+    app.kubernetes.io/part-of: argocd
+    platform.codestable/rebuild-generation: clean-2026-07
+    platform.codestable/managed-by: platform-personal-identity-baseline
+data:
+  policy.csv: |
+    g, shawnzhong, role:admin
